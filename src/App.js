@@ -7,8 +7,8 @@ import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import RecoveryPage from './pages/RecoveryPage';
 import NewPasswordPage from './pages/NewPasswordPage';
+import StagePage from './pages/StagePage';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-
 
 
 function App() {
@@ -29,6 +29,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/recovery" element={<RecoveryPage />} />
+        <Route path="/stage" element={<StagePage />} />
         <Route path="/newpassword/:email/" element={<NewPasswordPage />} />
       </Routes>
       <Footer />

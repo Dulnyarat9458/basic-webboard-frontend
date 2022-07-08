@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import CircularIndeterminate from '../components/CircularLoading';
 import Axios from 'axios';
 import { trackPromise } from 'react-promise-tracker';
+import { useNavigate } from "react-router-dom";
 
 function RecoveryPage() {
-
+    let navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => recoveryFunction(data);
-    const [loading, setLoading] = useState(false);
     const [dialog, setDialog] = useState({
         status: "",
         message: "",
@@ -41,10 +41,11 @@ function RecoveryPage() {
                 }).then((response) => {
                     console.log(response.data.status)
                     if (response.data.status === "ok") {
-                        setDialog({
-                            status: response.data.status,
-                            message: response.data.msg,
-                            isLoading: true,
+                        navigate('/stage', {
+                            state: {
+                                status: response.data.status,
+                                msg: response.data.msg,
+                            }
                         });
                     } else {
                         setDialog({
@@ -53,10 +54,14 @@ function RecoveryPage() {
                             isLoading: true,
                         });
                     }
-                    setLoading(true);
+
                 }).catch((err) => {
-                    alert("Login Faild")
-                    console.log(err);
+
+                    setDialog({
+                        status: "error",
+                        message: err,
+                        isLoading: true,
+                    });
                 }));
     }
 

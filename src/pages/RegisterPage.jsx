@@ -1,12 +1,14 @@
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import '../scss/Form.scss';
 import { SimpleDialog } from '../components/Dialog'
 
 function RegisterPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const password = useRef({});
+  password.current = watch("password", "");
 
   const onSubmit = data => registerFunction(data);
   const [dialog, setDialog] = useState({
@@ -28,25 +30,42 @@ function RegisterPage() {
   };
 
 
-  const registerFunction = (_data) => {
-    Axios.post('http://127.0.0.1:5000/api/users/register',
+  const loginFunction = (_data) => {
+    Axios.post('http://127.0.0.1:5000/api/users/login',
       {
-        "user_email": _data.email, "user_password": _data.password, "user_name": _data.name, "user_gender": _data.gender
+        "user_email": _data.email, "user_password": _data.password
       }).then((response) => {
-        if (response.data.status === "ok") {
-          setDialog({
-            status: response.data.status,
-            message: response.data.msg,
-            isLoading: true,
-          })
 
+        if (response.data.status === "ok") {
+          localStorage.setItem('token', response.data.token)
+          window.location = '/home'
+          console.log(response.data);
         } else {
           setDialog({
             status: response.data.status,
             message: response.data.msg,
             isLoading: true,
           });
+        }
+      }).catch((err) => {
+        alert("Login Faild")
+        console.log(err);
+      });
+  }
 
+  const registerFunction = (_data) => {
+    Axios.post('http://127.0.0.1:5000/api/users/register',
+      {
+        "user_email": _data.email, "user_password": _data.password, "user_name": _data.name, "user_gender": _data.gender
+      }).then((response) => {
+        if (response.data.status === "ok") {
+          loginFunction(_data)
+        } else {
+          setDialog({
+            status: response.data.status,
+            message: response.data.msg,
+            isLoading: true,
+          });
         }
       }).catch((err) => {
         setDialog({
@@ -83,6 +102,14 @@ function RegisterPage() {
               }
             })}></input>
             <p className='text-red-500 text-sm'>{errors.password?.message}</p>
+          </div>
+          <div className='my-4'>
+            <p className='text-l'>Repeat Password</p>
+            <input type="password" className="form-label rounded-lg my-2 p-1"  {...register("password_repeat", {
+              validate: value =>
+                value === password.current || "The passwords do not match"
+            })}></input>
+            <p className='text-red-500 text-sm'>{errors.password_repeat?.message}</p>
           </div>
           <div className='my-4'>
             <p className='text-l'>Name</p>

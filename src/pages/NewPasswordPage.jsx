@@ -1,21 +1,22 @@
 import '../scss/Form.scss';
 import { SimpleDialog } from '../components/Dialog'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import Axios from 'axios';
 import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function NewPasswordPage() {
+    let navigate = useNavigate();
     var url = window.location.href;
     console.log("url:" + url);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    const password = useRef({});
+    password.current = watch("password", "");
 
-
-
-
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => newpasswordFunction(data);
+
     const [dialog, setDialog] = useState({
         status: "",
         message: "",
@@ -54,12 +55,14 @@ function NewPasswordPage() {
         Axios(config)
             .then((response) => {
                 if (response.data.status === "ok") {
-                    localStorage.setItem('token', response.data.token)
-                    setDialog({
-                        status: response.data.status,
-                        message: response.data.msg,
-                        isLoading: true,
+
+                    navigate('/stage', {
+                        state: {
+                            status: response.data.status,
+                            msg: response.data.msg,
+                        }
                     });
+    
                     console.log(response.data);
                 } else {
                     setDialog({
@@ -91,6 +94,14 @@ function NewPasswordPage() {
                                 }
                             })}></input>
                             <p className='text-red-500 text-sm'>{errors.password?.message}</p>
+                        </div>
+                        <div className='my-4'>
+                            <p className='text-l'>Repeat Password</p>
+                            <input type="password" className="form-label rounded-lg my-2 p-1"  {...register("password_repeat", {
+                                validate: value =>
+                                    value === password.current || "The passwords do not match"
+                            })}></input>
+                            <p className='text-red-500 text-sm'>{errors.password_repeat?.message}</p>
                         </div>
                         <input type="submit" value="SUBMIT" className="main-button p-2 my-4 rounded-lg font-bold text-l"></input>
                     </div>
