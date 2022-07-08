@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+
+import './App.scss';
+import Appbar from './components/Appbar';
+import Footer from './components/Footer'
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+import RecoveryPage from './pages/RecoveryPage';
+import NewPasswordPage from './pages/NewPasswordPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
+
 
 function App() {
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    <Navigate to="/" replace />
+  } else {
+
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Appbar />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/recovery" element={<RecoveryPage />} />
+        <Route path="/newpassword/:email/" element={<NewPasswordPage />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

@@ -1,0 +1,14 @@
+@import "./Variables.scss";
+
+footer {
+  height: 60px;
+  background-color: $base-color1;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: $topic-font-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

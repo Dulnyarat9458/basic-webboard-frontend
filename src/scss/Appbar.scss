@@ -1,0 +1,18 @@
+@import "./Variables.scss";
+
+.Appbar {
+    justify-content: center;
+    display: flex;
+    z-index: 10;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    color: $topic-font-color;
+    background-color: $base-color1;
+}
+
+.adjust-center-appbar {
+    display: flex;
+    justify-content: space-between;
+}
+

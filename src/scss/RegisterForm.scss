@@ -1,0 +1,55 @@
+@import "./Variables.scss";
+
+.register-box {
+    color: $topic-font-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    .register-panel {
+        background-color: $base-color1;
+        width: 400px;
+        display: block;
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+        a {
+            color: $focus-color3;
+            transition: .2s;
+            &:hover {
+                font-weight: bold;
+            }
+        }
+        .main-topic {
+            color: $focus-color1;
+            text-align: center;
+        }
+        .form-label {
+            width: 100%;
+            background-color: $base-color2;
+        }
+        .mini-bar {
+            .rememberme {
+                display: flex;
+                align-items: center;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            a {
+                color: $focus-color2;
+            }
+        }
+        .forgot {
+            letter-spacing: -0.4px;
+        }
+    }
+    .register-button {
+        cursor: pointer;
+        width: 100%;
+        color: $base-color1;
+        background-color: $focus-color1;
+        transition: 0.3s;
+        &:hover {
+            box-shadow: 2px 2px 8px 4px $focus-color1-grow;
+        }
+    }
+}
