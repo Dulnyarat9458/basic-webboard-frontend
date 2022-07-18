@@ -5,11 +5,16 @@ $base-color2: #2a2c37;
 $focus-color1: #50fa7b;
 $focus-color2: #80ffea;
 $focus-color3: #9580ff;
+$danger-color:rgb(228, 58, 58);
+$warning-color:rgb(247, 202, 119);
 $focus-color1-grow: rgba(80, 250, 123, 0.3);
 $focus-color2-grow: rgba(128, 255, 234, 0.1);
 $topic-font-color : white; 
 $main-font-color : #f2f2f2; 
 $sub-font-color : hsla(0,0%,100%,.5); 
+$main-font-family : 'Fira Code', monospace;
 
 
-$main-font-family : 'Fira Code', monospace;; 
+:export{
+    basecolor2:$base-color2;
+}

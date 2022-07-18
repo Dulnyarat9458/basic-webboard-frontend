@@ -1,13 +1,14 @@
 import '../scss/Form.scss';
 import { SimpleDialog } from '../components/Dialog'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import Axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 
 
 function LoginPage() {
+
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => loginFunction(data);
   const [dialog, setDialog] = useState({
@@ -37,10 +38,10 @@ function LoginPage() {
       {
         "user_email": _data.email, "user_password": _data.password
       }).then((response) => {
-
         if (response.data.status === "ok") {
           localStorage.setItem('token', response.data.token)
-          window.location = '/home'
+          localStorage.setItem('user', JSON.stringify(response.data.users));
+          window.location = '/'
           console.log(response.data);
         } else {
           setDialog({
@@ -54,6 +55,19 @@ function LoginPage() {
         console.log(err);
       });
   }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      /* eslint-disable */
+      navigate('/');
+      /* eslint-disable */
+    }
+    console.log("token : " + token)
+  }, []);
+
 
   return (
     <div className='box '>

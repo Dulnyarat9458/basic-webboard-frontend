@@ -13,7 +13,7 @@
         box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
         a {
             color: $focus-color3;
-            transition: .2s;
+            transition: 0.2s;
             &:hover {
                 font-weight: bold;
             }
@@ -52,4 +52,29 @@
             box-shadow: 2px 2px 8px 4px $focus-color1-grow;
         }
     }
+}
+
+.btn-edit {
+    color: $focus-color2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 8px;
+    border-radius: 16px;
+    transition: 0.1s;
+    &:hover {
+        box-shadow: 2px 2px 8px 4px $focus-color2-grow;
+    }
+}
+
+.editor-input {
+    display: flex;
+    justify-content: center;
+}
+
+#input-email,
+#input-name,
+#input-gender {
+    background-color: $base-color1;
 }

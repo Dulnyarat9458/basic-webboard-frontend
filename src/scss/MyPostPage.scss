@@ -1,0 +1,15 @@
+@import "./Variables.scss";
+
+.my-post-panel {
+    color: white;
+    ul {
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+        background-color: $base-color1;
+        transition: .2s;
+        cursor: pointer;
+        &:hover {
+            color: $focus-color1;
+            box-shadow: 4px 4px 16px 8px rgba(0, 0, 0, 0.2);
+        }
+    }
+}

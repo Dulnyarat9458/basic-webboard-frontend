@@ -1,0 +1,28 @@
+@import "./Variables.scss";
+
+.full-content {
+    color: white;
+    .content-panel {
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+        background-color: $base-color1;
+        transition: 0.2s;
+    }
+
+    .option-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .social-panel {
+        display: flex;
+        align-items: center;
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    a {
+        transition: 0.2s;
+        &:hover {
+            color: $focus-color1;
+        }
+    }
+}

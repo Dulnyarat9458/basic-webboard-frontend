@@ -1,0 +1,36 @@
+@import "./Variables.scss";
+
+.comment-box {
+    background-color: $base-color1;
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+    a {
+        color: $focus-color1;
+        transition: 0.2s;
+        &:hover h3 {
+            color: $focus-color2;
+        }
+    }
+}
+
+.sm-dialog {
+    position: fixed;
+    top: 0;
+}
+
+textarea {
+    background-color: $base-color2;
+    width: 100%;
+}
+
+.submit-btn {
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: $base-color1;
+    background-color: $focus-color1;
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 2px 2px 8px 4px $focus-color1-grow;
+    }
+}

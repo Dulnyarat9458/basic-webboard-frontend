@@ -1,0 +1,13 @@
+@import "./Variables.scss";
+
+.profile-adjust {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    .profile-panel {
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+        background-color: $base-color1;
+    }
+}

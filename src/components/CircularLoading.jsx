@@ -1,19 +1,19 @@
 import * as React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import '../scss/CircularLoading.scss';
-import { trackPromise, usePromiseTracker } from 'react-promise-tracker';
+import { usePromiseTracker } from 'react-promise-tracker';
+import '../scss/CircularLoading.scss'
 
 export default function CircularIndeterminate() {
     const { promiseInProgress } = usePromiseTracker();
-    return (
-        promiseInProgress && (
+    console.log("promiseInProgress"+promiseInProgress);
+    if (promiseInProgress) {
+        return (
             <div className='loading-cover'>
                 <div className='loading-zone rotate-center'>
                     <div className='loading-icon'>
                     </div>
                 </div>
             </div>
-        )
-    );
+        );
+    }
+
 }

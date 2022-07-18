@@ -9,10 +9,77 @@
     top: 0;
     color: $topic-font-color;
     background-color: $base-color1;
+
+    .icon-properties {
+        width: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover {
+            color: $focus-color1;
+        }
+    }
+}
+.menubar {
+    position: fixed;
+    display: block;
+    background-color: $base-color1;
+    width: 100%;
+    margin-top: 48px;
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+    color: white;
+    max-height: 0px;
+    z-index: 5;
+    transition: max-height 0.3s;
+    overflow-y: hidden;
+
+    img {
+        width: 30px;
+        height: 30px;
+        border-radius: 1000px;
+        margin-right: 8px;
+    }
+    ul {
+        .link {
+            height: 100%;
+            li {
+                cursor: pointer;
+                transition: 0.2s;
+                font-weight: 500;
+
+                .pf {
+                    display: flex;
+                    align-items: center;
+                }
+
+                &:hover {
+                    color: $base-color1;
+                    padding-left: 32px;
+                    background-color: $focus-color1;
+                }
+            }
+        }
+
+        .logout {
+            height: 100%;
+            li {
+                cursor: pointer;
+                transition: 0.2s;
+                font-weight: 500;
+                div {
+                    transition: 0.2s;
+                }
+                &:hover {
+                    padding-left: 32px;
+                    color: $base-color1;
+                    background-color: rgb(231, 73, 73);
+                }
+            }
+        }
+    }
 }
 
 .adjust-center-appbar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
-

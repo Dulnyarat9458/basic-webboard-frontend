@@ -1,6 +1,14 @@
-@import '../src/scss/Variables.scss';
+@import "../src/scss/Variables.scss";
 
-body{
+
+
+
+body {
   background-color: $base-color2;
   font-family: $main-font-family;
 }
+.adjust-page {
+  height: 48px;
+}
+
+

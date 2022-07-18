@@ -38,7 +38,7 @@ function RegisterPage() {
 
         if (response.data.status === "ok") {
           localStorage.setItem('token', response.data.token)
-          window.location = '/home'
+          window.location = '/'
           console.log(response.data);
         } else {
           setDialog({

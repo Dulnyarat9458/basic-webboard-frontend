@@ -6,9 +6,11 @@ footer {
   position: fixed;
   left: 0;
   bottom: 0;
+  padding-top: 48px;
   width: 100%;
   color: $topic-font-color;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
 }

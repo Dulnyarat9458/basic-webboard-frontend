@@ -55,14 +55,13 @@ function NewPasswordPage() {
         Axios(config)
             .then((response) => {
                 if (response.data.status === "ok") {
-
                     navigate('/stage', {
                         state: {
                             status: response.data.status,
                             msg: response.data.msg,
                         }
                     });
-    
+
                     console.log(response.data);
                 } else {
                     setDialog({

@@ -1,0 +1,13 @@
+@import "./Variables.scss";
+
+.card {
+    background-color: $base-color1;
+    color: white;
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: .2s;
+    &:hover{
+        color: $focus-color1;
+        box-shadow: 4px 4px 16px 8px rgba(0, 0, 0, 0.2);
+    }
+}

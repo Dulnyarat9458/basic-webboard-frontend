@@ -66,8 +66,7 @@ function RecoveryPage() {
     }
 
     return (
-
-        <div className='box '>
+        <div className='box'>
             <div className='panel p-8 m-4 rounded-lg '>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <p className="text-center main-topic font-bold text-2xl">Recovery Password</p>

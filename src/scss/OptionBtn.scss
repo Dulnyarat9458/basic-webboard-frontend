@@ -1,0 +1,16 @@
+@import "./Variables.scss";
+
+.btn {
+    color: $base-color1;
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.2s;
+    &.op-delete {
+        background-color: $danger-color;
+    }
+    &.op-edit {
+        background-color: $warning-color;
+    }
+    &:hover {
+        background-color: white;
+    }
+}
