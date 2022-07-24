@@ -25,4 +25,9 @@
             color: $focus-color1;
         }
     }
+    .comment-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
 }

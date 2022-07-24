@@ -1,0 +1,67 @@
+@import "./Variables.scss";
+
+.admin-dashboard {
+    h1 {
+        color: white;
+    }
+    button {
+        background-color: $base-color1;
+        color: white;
+        box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+        transition: 0.2s;
+        &:hover {
+            color: $focus-color1;
+        }
+    }
+
+    .option-content {
+        .btn {
+            color: $base-color1 !important;
+        }
+    }
+}
+.table-list {
+    background-color: $base-color1;
+    border-radius: 16px;
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+}
+
+.css-1q1u3t4-MuiTableRow-root {
+    color: $focus-color1 !important;
+}
+
+.css-1ex1afd-MuiTableCell-root {
+    border-bottom: 0px solid rgba(224, 224, 224, 0.25) !important;
+    color: white !important;
+}
+.css-apqrd9-MuiTableBody-root {
+    background-color: $base-color2 !important;
+    color: white !important;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.25) !important;
+}
+
+.MuiTableRow-head {
+    border-bottom: 2px solid rgba(110, 110, 110, 0.25) !important;
+}
+.css-apqrd9-MuiTableBody-root:last-child {
+    border-bottom: 0px solid rgba(224, 224, 224, 0.25) !important;
+    border-radius: 0px 0px 16px 16px;
+}
+.css-1ygcj2i-MuiTableCell-root {
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+.list-menu-option {
+    display: flex;
+    justify-content: center;
+}
+
+
+.search-input{
+    display: block;
+    margin: auto;
+    background-color: $base-color1;
+    color: white;
+    box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+}

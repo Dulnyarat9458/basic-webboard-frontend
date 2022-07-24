@@ -75,12 +75,12 @@ function CommentBox(props) {
 
     if (userObject === null) {
         return (
-        <div className='panel p-8 m-8 rounded-lg comment-box'>
-            <div>
-                <h2 className="font-bold mb-8 text-center">Please Sign in to comment</h2>
-                <Link className='link profile-link' to='/login'> <h3 className="font-bold mb-4 text-center">SIGN IN</h3></Link>
-            </div>
-        </div>)
+            <div className='panel p-8 m-8 rounded-lg comment-box'>
+                <div>
+                    <h2 className="font-bold mb-8 text-center">Please Sign in to comment</h2>
+                    <Link className='link profile-link' to='/login'> <h3 className="font-bold mb-4 text-center">SIGN IN</h3></Link>
+                </div>
+            </div>)
     } else {
         return (
 

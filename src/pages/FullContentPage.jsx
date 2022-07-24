@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CommentBox from '../components/CommentBox';
 import OptionBtn from '../components/OptionBtn';
+import CommentOptionBtn from '../components/CommentOptionBtn';
 import { faFacebook, faTwitter, faLine } from '@fortawesome/free-brands-svg-icons'
 
 import '../scss/FullContentPage.scss'
@@ -36,12 +37,9 @@ function FullContentPage() {
             .catch(function (error) {
                 console.log(error);
             });
-        // eslint-disable-next-line
+      
         callCommentFunction();
-        // eslint-disable-next-line
-
-
-
+      
 
     }, []);
 
@@ -69,7 +67,10 @@ function FullContentPage() {
             <ul className='p-4 rounded-lg m-8 content-panel' key={index} >
                 <li className='mb-8'>{comment.comment_text}</li>
                 <li className='text-sm font-light'>{comment.content_writer}</li>
-                <li className='text-sm font-light'>{comment.comment_date}</li>
+                <li className='comment-option'>
+                    <p className='text-sm font-light'>{comment.comment_date}</p>
+                    <CommentOptionBtn comment_id={comment.comment_id} content_id={comment.comment_content_id} comment_writer_id={comment.comment_writer_id} />
+                </li>
             </ul>
         );
     })

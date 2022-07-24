@@ -15,10 +15,7 @@ export default function HomePage() {
     const contentElements = content.map((content, index) => {
         return <ContentCard key={index} contentData={content} />
     })
-
-
     useEffect(() => {
-
         Axios.post('http://127.0.0.1:5000/api/users/auth',
             {},
             {
@@ -75,7 +72,6 @@ export default function HomePage() {
                 <div className='grid  sm:grid-cols-2  xl:grid-cols-3'>
                     {contentElements}
                 </div>
-        
             </div>
 
         );

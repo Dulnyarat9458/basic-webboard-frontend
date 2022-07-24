@@ -38,6 +38,7 @@ function RegisterPage() {
 
         if (response.data.status === "ok") {
           localStorage.setItem('token', response.data.token)
+          localStorage.setItem('user', JSON.stringify(response.data.users));
           window.location = '/'
           console.log(response.data);
         } else {

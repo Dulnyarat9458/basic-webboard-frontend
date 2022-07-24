@@ -35,7 +35,6 @@ function ProfilePage() {
     const editFunction = (_data) => {
 
         var token = localStorage.getItem('token');
-
         var data = JSON.stringify({
             "user_id": userInfo.id,
             "user_name": _data.name,
@@ -84,7 +83,6 @@ function ProfilePage() {
     var userObject = localStorage.getItem('user');
     var _userObject = JSON.parse(userObject)
     useEffect(() => {
-
 
         setUserInfo(_userObject);
         if (userInfo) {

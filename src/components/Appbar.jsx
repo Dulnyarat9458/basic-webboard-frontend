@@ -50,6 +50,7 @@ function Appbar(props) {
 
 
     if (token) {
+
         return (
             <div className='appbar-panel'>
                 <div className="Appbar text-2xl font-bold py-2  mx-auto">
@@ -79,6 +80,8 @@ function Appbar(props) {
                 </div>
             </div>
         );
+
+
     } else {
         return (
             <div className='appbar-panel'>
