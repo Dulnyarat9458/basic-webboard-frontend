@@ -1,22 +1,19 @@
 import '../scss/Form.scss';
 import { SimpleDialog } from '../components/Dialog'
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import { useParams } from "react-router-dom";
 import Variables from '../scss/Variables.scss';
 
 function EditContentPage() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { id } = useParams();
     const onSubmit = data => editFunction(data);
     const [contentInfo, setContentInfo] = useState([]);
     const [nameDisable, setNameDisable] = useState(true);
     const [genderDisable, setGenderDisable] = useState(true);
     const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm({ mode: 'onBlur' });
-
-
-    console.log("Variables: " + Variables.basecolor1)
 
     const [dialog, setDialog] = useState({
         status: "",
@@ -36,20 +33,19 @@ function EditContentPage() {
         handleDialog("", false);
     };
     const editFunction = (_data) => {
-        console.log("ข้อมูล: " + _data.content);
-        var token = localStorage.getItem('token');
-        var userObject = localStorage.getItem('user');
-        var _userObject = JSON.parse(userObject)
-        var data = JSON.stringify({
+        const token = localStorage.getItem('token');
+        const userObject = localStorage.getItem('user');
+        const _userObject = JSON.parse(userObject)
+        const data = JSON.stringify({
             "content_author_id": _userObject.id,
             "content_id": id,
             "content_topic": _data.topic,
             "content_story": _data.story
         });
 
-        var config = {
+        const config = {
             method: 'put',
-            url: 'http://127.0.0.1:5000/api/contents/own/update/' + _userObject.id + '/' + id + '',
+            url: `${apiUrl}/api/contents/own/update/${_userObject.id}/${id}` ,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -59,7 +55,6 @@ function EditContentPage() {
 
         Axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 window.location.reload(false);
             })
             .catch(function (error) {
@@ -77,13 +72,11 @@ function EditContentPage() {
         setGenderDisable(false);
     }
 
-
-
     useEffect(() => {
         var data = '';
         var config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/contents/'+id,
+            url: `${apiUrl}/api/contents/id`,
             headers: {},
             data: data
         };
@@ -100,14 +93,7 @@ function EditContentPage() {
             .catch(function (error) {
                 console.log(error);
             });
-
-
-
-
     }, [])
-
-
-
     return (
         <div className='box'>
             <form className="panel p-8 m-4 rounded-lg " onSubmit={handleSubmit(onSubmit)}>

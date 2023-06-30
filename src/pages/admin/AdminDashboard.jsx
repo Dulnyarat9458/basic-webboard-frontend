@@ -7,50 +7,41 @@ import { useEffect } from 'react';
 import Axios from 'axios';
 import '../../scss/AdminDashboard.scss'
 
-
 function AdminDashboard() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [state, setState] = useState('USERS');
     const token = localStorage.getItem('token');
     const [authorization, setAuthorization] = useState(false);
-
     useEffect(() => {
-        Axios.post('http://127.0.0.1:5000/api/users/auth',
+        Axios.post(`${apiUrl}/api/users/auth`,
             {},
             {
                 headers: {
                     'Authorization': "Bearer " + token
                 }
             }).then((response) => {
-                console.log("res role: " + response.data.role)
                 var userObject = localStorage.getItem('user');
                 var _userObject = JSON.parse(userObject)
                 if (response.data.status === "ok" && response.toString !== null && response.data.role === 'a') {
-                    console.log("auth success" + token);
-                    console.log("ADMIN CONFIRMED")
                     setAuthorization(true);
                 } else {
                     var data = '';
                     var config = {
                         method: 'get',
-                        url: 'http://127.0.0.1:5000/api/users/' + _userObject.id,
+                        url: `${apiUrl}/api/users/${_userObject.id}`,
                         headers: {},
                         data: data
                     };
 
                     Axios(config)
                         .then(function (response) {
-                            console.log(JSON.stringify(response.data));
                             localStorage.setItem('user', JSON.stringify(response.data.users));
                         })
                         .catch(function (error) {
-                            console.log(error);
                         });
-
-                    console.log("FAKE ADMIN")
                     window.location = '/'
                 }
             }).catch((err) => {
-                console.log(err)
                 console.error('Error:', err);
             });
 

@@ -1,13 +1,13 @@
 import Axios from 'axios';
 function checkToken() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('token');
-    Axios.post('http://127.0.0.1:5000/api/users/auth',
+    Axios.post(`${apiUrl}/api/users/auth`,
         {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         }).then((response) => {
-            console.log("res: " + response.status)
             if (response.status === "ok" && response.toString !== null) {
                 alert("auth success" + token);
             } else {

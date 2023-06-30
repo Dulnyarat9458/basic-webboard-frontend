@@ -3,27 +3,22 @@ import Axios from 'axios';
 import '../scss/MyPostPage.scss'
 import { Link } from 'react-router-dom'
 function MyPostPage() {
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [userPost, setUserPost] = useState([]);
-
     useEffect(() => {
-
         const userObject = localStorage.getItem('user');
-        var _userObject = JSON.parse(userObject)
-
-        var config = {
+        const _userObject = JSON.parse(userObject)
+        const config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/contents/own/' + _userObject.id,
+            url: `${apiUrl}/api/contents/own/${_userObject.id}`,
             headers: {}
         };
-
         Axios(config)
             .then(function (response) {
-                console.log(response.data)
                 setUserPost(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
     }, [])
 
@@ -38,7 +33,6 @@ function MyPostPage() {
         );
     })
 
-
     return (
         <div className='container mx-auto my-post-panel'>
             <h1 className='m-8 font-bold'>My Content</h1>
@@ -46,7 +40,6 @@ function MyPostPage() {
                 {postElements}
             </div>
         </div>
-
     );
 }
 

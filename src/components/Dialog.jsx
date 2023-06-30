@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
 import '../scss/Dialog.scss';
 
 function SimpleDialog({ status, message, onDialog }) {
-
 
   const closeDialog = () => {
     if (status.toUpperCase() === 'OKREFRESH') {
@@ -11,10 +8,6 @@ function SimpleDialog({ status, message, onDialog }) {
     }
     onDialog(true)
   }
-
-
-  console.log(status);
-
 
   if (status.toUpperCase() === 'OKREFRESH') {
     return (
@@ -50,7 +43,6 @@ function SimpleDialog({ status, message, onDialog }) {
     );
   } else {
     return (
-
       <div className="dialog-position fade-in " onClick={() => onDialog(false)}>
         <div className='dialog-box' onClick={(e) => e.stopPropagation()}>
           <div className='dialog-content p-8 rounded-lg text-center'>

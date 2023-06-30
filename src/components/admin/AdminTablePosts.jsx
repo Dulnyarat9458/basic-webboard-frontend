@@ -13,15 +13,11 @@ function AdminTablePosts() {
     const [contentData, setContentData] = useState([]);
     const [topic, setTopic] = useState('');
     const [foundContent, setFoundContent] = useState([]);
-
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const filter = (e) => {
         const keyword = e.target.value;
         if (keyword !== '') {
-            console.log(keyword)
             const results = contentData.filter((content) => {
-                console.log(content)
-                console.log("ct topic" + content.content_topic)
                 return content.content_topic.toLowerCase().startsWith(keyword.toLowerCase());
             });
             setFoundContent(results);
@@ -37,20 +33,18 @@ function AdminTablePosts() {
         var data = '';
         var config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/contents',
+            url: `${apiUrl}/api/contents`,
             headers: {},
             data: data
         };
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setContentData(response.data);
                 setFoundContent(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
-
     }, [])
 
     const dataElements = foundContent.map((foundContent, index) => {

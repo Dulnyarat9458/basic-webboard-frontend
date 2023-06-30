@@ -1,6 +1,6 @@
 import '../scss/Form.scss';
 import { SimpleDialog } from '../components/Dialog'
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
@@ -9,18 +9,13 @@ import Variables from '../scss/Variables.scss';
 
 
 function EditCommentPage() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     let navigate = useNavigate();
     const { id } = useParams();
-
     const onSubmit = data => editFunction(data);
     const [commentInfo, setCommentInfo] = useState([]);
-    const [nameDisable, setNameDisable] = useState(true);
     const [genderDisable, setGenderDisable] = useState(true);
-    const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm({ mode: 'onBlur' });
-
-
-    console.log("Variables: " + Variables.basecolor1)
-    console.log("comment_id: " + id)
+    const { register, handleSubmit, formState: { errors },  setValue } = useForm({ mode: 'onBlur' });
     const [dialog, setDialog] = useState({
         status: "",
         message: "",
@@ -40,20 +35,18 @@ function EditCommentPage() {
     };
 
     const editFunction = (_data) => {
-        console.log("ข้อมูล: " + _data.comment);
-        var token = localStorage.getItem('token');
-        var userObject = localStorage.getItem('user');
-        var _userObject = JSON.parse(userObject)
-
-        var data2 = JSON.stringify({
+        const token = localStorage.getItem('token');
+        const userObject = localStorage.getItem('user');
+        const _userObject = JSON.parse(userObject)
+        const data2 = JSON.stringify({
             "comment_writer_id": _userObject.id,
             "comment_id": id,
             "comment_text": _data.comment,
         });
 
-        var config2 = {
+        const config2 = {
             method: 'put',
-            url: 'http://127.0.0.1:5000/api/comments/own/update/' + _userObject.id + '/' + id,
+            url: `${apiUrl}/api/comments/own/update/${_userObject.id }/${id}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -63,15 +56,11 @@ function EditCommentPage() {
 
         Axios(config2)
             .then(function (response) {
-                console.log("GET: " + JSON.stringify(response.data));
-                // window.location.reload(false);
                 navigate("/fullcontent/" + commentInfo.comment_content_id);
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
-
-
     }
 
     const editGenderFunction = () => {
@@ -79,30 +68,26 @@ function EditCommentPage() {
         setGenderDisable(false);
     }
 
-
-
     useEffect(() => {
-        var userObject = localStorage.getItem('user');
-        var _userObject = JSON.parse(userObject)
-        var data = '';
-        var config = {
+        const userObject = localStorage.getItem('user');
+        const _userObject = JSON.parse(userObject)
+        const data = '';
+        const config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/comments/only/' + id,
+            url: `${apiUrl}/api/comments/only/${id}` ,
             headers: {},
             data: data
         };
 
         Axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setCommentInfo(response.data[0]);
                 if (commentInfo) {
                     setValue("comment", response.data[0].comment_text);
                 }
-                console.log("eeeee = " + commentInfo.comment_content_id)
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
 
     }, [])

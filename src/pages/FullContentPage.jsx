@@ -11,19 +11,17 @@ import { faFacebook, faTwitter, faLine } from '@fortawesome/free-brands-svg-icon
 import '../scss/FullContentPage.scss'
 
 function FullContentPage() {
-
     const { id } = useParams();
     const [content, setContent] = useState([]);
     const [comment, setComment] = useState([]);
-
     const shareFacebookUrl = "https://www.facebook.com/share.php?u=" + window.location.href;
     const shareTwitterUrl = "http://www.twitter.com/share?url=" + window.location.href;
     const shareLineUrl = "https://social-plugins.line.me/lineit/share?url=" + window.location.href;
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(() => {
         var config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/contents/' + id,
+            url: `${apiUrl}/api/contents/${id}`,
             headers: {},
             data: ''
         };
@@ -31,34 +29,25 @@ function FullContentPage() {
         Axios(config)
             .then(function (response) {
                 setContent(response.data[0])
-                console.log("content");
-                console.log(response.data[0])
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
-      
         callCommentFunction();
-      
-
     }, []);
-
 
     const callCommentFunction = () => {
         var config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/comments/' + id,
+            url: `${apiUrl}/api/comments/${id}`,
             headers: {}
         };
         Axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
-                console.log("comment");
                 setComment(response.data);
-
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
     }
 
@@ -89,8 +78,6 @@ function FullContentPage() {
                     <a href={shareTwitterUrl} className="p-2" target="_blank"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
                     <a href={shareLineUrl} className="p-2" target="_blank"><FontAwesomeIcon icon={faLine} size="2x" /></a>
                 </div>
-
-
             </div>
             <div className='m-8 p-4 rounded-lg content-panel'>
                 <p className='mb-8'>{content.content_story}</p>

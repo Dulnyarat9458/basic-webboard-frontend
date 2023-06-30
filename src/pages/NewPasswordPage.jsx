@@ -7,16 +7,14 @@ import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function NewPasswordPage() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     let navigate = useNavigate();
     var url = window.location.href;
-    console.log("url:" + url);
     const [searchParams] = useSearchParams();
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const password = useRef({});
     password.current = watch("password", "");
-
     const onSubmit = data => newpasswordFunction(data);
-
     const [dialog, setDialog] = useState({
         status: "",
         message: "",
@@ -36,16 +34,13 @@ function NewPasswordPage() {
     };
 
     const newpasswordFunction = (_data) => {
-        console.log("loginFunction actived")
-        console.log(_data.password)
         const token = searchParams.get("token")
-        console.log("token:" + token);
         var data = JSON.stringify({
             "new_password": _data.password
         });
         var config = {
             method: 'put',
-            url: 'http://127.0.0.1:5000/api/users/resetpassword',
+            url: `${apiUrl}/api/users/resetpassword`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -61,8 +56,6 @@ function NewPasswordPage() {
                             msg: response.data.msg,
                         }
                     });
-
-                    console.log(response.data);
                 } else {
                     setDialog({
                         status: response.data.status,
@@ -72,9 +65,7 @@ function NewPasswordPage() {
                 }
             }).catch((err) => {
                 alert(err)
-                console.log(err);
             });
-
     }
 
     return (
@@ -106,7 +97,6 @@ function NewPasswordPage() {
                     </div>
                 </form>
             </div>
-
             {dialog.isLoading && (
                 <SimpleDialog
                     onDialog={acceptResponse}

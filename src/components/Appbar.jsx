@@ -1,25 +1,18 @@
 import '../scss/Appbar.scss';
-
-
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightFromBracket, faBarsStaggered, faTimes, faSigning } from '@fortawesome/free-solid-svg-icons'
+import { faBarsStaggered, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
 
-
-function Appbar(props) {
-
+function Appbar() {
     const [pressed, setPressed] = useState(false);
     const [user, setUser] = useState(false);
-
     useEffect(() => {
         var userObject = localStorage.getItem('user');
         var _userObject = JSON.parse(userObject)
         setUser(_userObject);
-        console.log("APPBAR CHANGE");
     }, [])
-
 
     const logoutFunction = (event) => {
         event.preventDefault();
@@ -46,11 +39,7 @@ function Appbar(props) {
 
     const token = localStorage.getItem('token');
 
-
-
-
     if (token) {
-
         return (
             <div className='appbar-panel'>
                 <div className="Appbar text-2xl font-bold py-2  mx-auto">
@@ -59,7 +48,6 @@ function Appbar(props) {
                         <p className='logo'>Webboard</p>
                         <div className='icon-properties pl-8'></div>
                     </div>
-
                 </div >
                 <div className='menubar' id='menubar'>
                     <ul id='menubar-menu'>
@@ -80,8 +68,6 @@ function Appbar(props) {
                 </div>
             </div>
         );
-
-
     } else {
         return (
             <div className='appbar-panel'>
@@ -91,13 +77,11 @@ function Appbar(props) {
                         <p className='logo'>Webboard</p>
                         <div className='icon-properties pl-8'></div>
                     </div>
-
                 </div >
                 <div className='menubar' id='menubar'>
                     <ul id='menubar-menu'>
                         <Link className='link' to='/' onClick={closeMenuFunction}> <li className='py-5 '><div className='container mx-auto pl-8'>HOME</div></li></Link>
                         <Link className='link' to='/login' onClick={closeMenuFunction}><li className='py-5 '><div className='container mx-auto pl-8'>SIGN IN</div></li></Link>
-
                     </ul>
                 </div>
             </div>

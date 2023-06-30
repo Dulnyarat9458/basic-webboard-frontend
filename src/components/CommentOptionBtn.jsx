@@ -1,7 +1,7 @@
 import React from 'react';
 import '../scss/OptionBtn.scss'
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import { confirmAlert } from 'react-confirm-alert';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom'
 
@@ -10,8 +10,8 @@ function CommentOptionBtn(props) {
     var userObject = localStorage.getItem('user');
     var _userObject = JSON.parse(userObject)
     let navigate = useNavigate();
+    const apiUrl = process.env.REACT_APP_API_URL;
     const submit = () => {
-        console.log("alert toggle")
         confirmAlert({
             title: 'Confirm to submit',
             message: 'Are you sure to do this.',
@@ -19,38 +19,29 @@ function CommentOptionBtn(props) {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        console.log("onclicked")
-                        console.log("comment_writer_id: " + comment_writer_id)
-                        console.log("comment_id: " + comment_id)
-                
                         var axios = require('axios');
                         var config = {
                             method: 'delete',
-                            url: 'http://127.0.0.1:5000/api/comments/own/delete/' + comment_writer_id + '/' + comment_id,
+                            url: `${apiUrl}/api/comments/own/delete/${comment_writer_id}/${comment_id}`,
                             headers: {}
                         };
                         axios(config)
                             .then(function (response) {
                                 window.location.reload(false);
-                                console.log(response.data);
-
                             })
                             .catch(function (error) {
-                                console.log(error);
+                                console.error(error);
                             });
                     }
                 },
                 {
                     label: 'No',
                     onClick: () => {
-                        // alert('Click No')
                     }
                 }
             ]
         });
     };
-
-
 
     if (userObject !== null && _userObject.id === comment_writer_id) {
         return (

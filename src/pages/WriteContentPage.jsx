@@ -5,14 +5,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-
-
 function WriteContentPage() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     let navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
-
     const onSubmit = data => writeContentFunction(data);
-
     const [dialog, setDialog] = useState({
         status: "",
         message: "",
@@ -32,49 +29,36 @@ function WriteContentPage() {
     };
 
     const writeContentFunction = (_data) => {
-        console.log("loginFunction actived")
-        console.log(_data.topic)
-        console.log(_data.content)
-        var userObject = localStorage.getItem('user');
-
-        var _userObject = JSON.parse(userObject)
-
-
-        var data = JSON.stringify({
+        const userObject = localStorage.getItem('user');
+        const _userObject = JSON.parse(userObject)
+        const data = JSON.stringify({
             "content_topic": _data.topic,
             "content_story": _data.content,
             "content_author_id": _userObject.id
         });
 
-        var config = {
+        const config = {
             method: 'post',
-            url: 'http://127.0.0.1:5000/api/contents/addcontent',
+            url: `${apiUrl}/api/contents/addcontent`,
             headers: {
                 'Content-Type': 'application/json'
             },
             data: data
         };
 
-        console.log(config)
         axios(config)
             .then(function (response) {
-
                 navigate('/stage', {
                     state: {
                         status: response.data.status,
                         msg: response.data.msg,
                     }
                 });
-
-                console.log(JSON.stringify(response.data));
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
-
     }
-
-
     return (
         <div className='box '>
             <div className='panel p-8 m-4 rounded-lg '>

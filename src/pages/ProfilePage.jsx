@@ -7,14 +7,12 @@ import '../scss/Form.scss';
 import { SimpleDialog } from '../components/Dialog'
 
 function ProfilePage() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const onSubmit = data => editFunction(data);
     const [userInfo, setUserInfo] = useState([]);
     const [nameDisable, setNameDisable] = useState(true);
     const [genderDisable, setGenderDisable] = useState(true);
     const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm({ mode: 'onBlur' });
-
-
-    console.log("Variables: " + Variables.basecolor1)
     const [dialog, setDialog] = useState({
         status: "",
         message: "",
@@ -45,7 +43,7 @@ function ProfilePage() {
 
         var config = {
             method: 'put',
-            url: 'http://127.0.0.1:5000/api/users/updateprofile',
+            url: `${apiUrl}/api/users/updateprofile`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -55,13 +53,11 @@ function ProfilePage() {
 
         Axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.users));
                 window.location.reload(false);
             })
             .catch(function (error) {
-                console.log(error);
                 setDialog({
                     status: "error",
                     message: error,
@@ -83,7 +79,6 @@ function ProfilePage() {
     var userObject = localStorage.getItem('user');
     var _userObject = JSON.parse(userObject)
     useEffect(() => {
-
         setUserInfo(_userObject);
         if (userInfo) {
             setValue("email", userInfo.email);
@@ -92,14 +87,11 @@ function ProfilePage() {
         }
     }, [userInfo.email])
 
-
-
     return (
         <div className='box'>
             <form className="panel p-8 m-4 rounded-lg " onSubmit={handleSubmit(onSubmit)}>
                 <p className="text-center main-topic font-bold text-2xl">PROFILE</p>
-                <div >
-
+                <div>
                     <div className='my-4'>
                         <p className='text-l'>Email</p>
                         <input id='input-email' disabled="true" type="text" className="form-label rounded-lg my-2 p-1"  {...register("email", {
@@ -110,7 +102,6 @@ function ProfilePage() {
                         })}></input>
                         <p className='text-red-500 text-sm'>{errors.email?.message}</p>
                     </div>
-
                     <div className='my-4'>
                         <p className='text-l'>Name</p>
                         <div className="editor-input">
@@ -118,9 +109,7 @@ function ProfilePage() {
                             <div className="btn-edit" onClick={editNameFunction}>Edit</div>
                         </div>
                         <p className='text-red-500 text-sm'>{errors.name?.message}</p>
-
                     </div>
-
                     <div className='my-4'>
                         <p className='text-l'>gender</p>
                         <div className="editor-input">
@@ -130,7 +119,6 @@ function ProfilePage() {
                         <p className='text-red-500 text-sm'>{errors.gender?.message}</p>
                     </div>
                     <input type="submit" value="SAVE" className="main-button p-2 my-4 rounded-lg font-bold text-l" ></input>
-
                 </div>
             </form>
             {dialog.isLoading && (

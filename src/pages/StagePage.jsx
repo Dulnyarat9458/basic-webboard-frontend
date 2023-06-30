@@ -1,7 +1,7 @@
 import '../scss/Form.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function StagePage({ route, navigation }) {
+function StagePage() {
     const navigate = useNavigate();
     const location = useLocation();
     setTimeout(redirect, 3000)

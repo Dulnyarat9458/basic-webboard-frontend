@@ -1,15 +1,12 @@
 import React from 'react';
 import '../../scss/OptionBtn.scss'
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import { Link } from 'react-router-dom'
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { confirmAlert } from 'react-confirm-alert';
 
 function AdminCommentBtn(props) {
-
-    const { comment_id, comment_text, content_topic, comment_writer, comment_writer_id, comment_date } = props;
-
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const { comment_id, comment_writer_id } = props;
     const submit = () => {
-        console.log("alert toggle")
         confirmAlert({
             title: 'Confirm to submit',
             message: 'Are you sure to do this.',
@@ -21,10 +18,9 @@ function AdminCommentBtn(props) {
 
                         var config = {
                             method: 'delete',
-                            url: 'http://127.0.0.1:5000/api/comments/own/delete/' + comment_writer_id + '/' + comment_id,
+                            url: `${apiUrl}/api/comments/own/delete/${comment_writer_id}/${comment_id}`,
                             headers: {}
                         };
-
                         axios(config)
                             .then(function (response) {
                                 console.log(JSON.stringify(response.data));
@@ -33,7 +29,6 @@ function AdminCommentBtn(props) {
                             .catch(function (error) {
                                 console.log(error);
                             });
-
                     }
                 },
                 {
@@ -44,17 +39,11 @@ function AdminCommentBtn(props) {
             ]
         });
     };
-
-
-
-
     return (
         <div className='option-content'>
-            {/* <button className='btn op-edit px-2 py-1 mr-2 rounded-lg '>EDIT</button> */}
             <button className='btn op-delete px-2 py-1 rounded-lg ' onClick={submit}>DELETE</button>
         </div>
     );
-
 }
 
 export default AdminCommentBtn;

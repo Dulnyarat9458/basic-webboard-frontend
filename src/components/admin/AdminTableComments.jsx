@@ -11,17 +11,14 @@ import '../../scss/AdminDashboard.scss'
 
 
 function AdminTableComments() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [commentData, setCommentData] = useState([]);
     const [tcomment, setTcomment] = useState('');
     const [foundComment, setFoundComment] = useState([]);
-
     const filter = (e) => {
         const keyword = e.target.value;
         if (keyword !== '') {
-            console.log(keyword)
             const results = commentData.filter((comment) => {
-                console.log(comment)
-                console.log("ct topic" + comment.comment_text)
                 return comment.comment_text.toLowerCase().startsWith(keyword.toLowerCase());
             });
             setFoundComment(results);
@@ -36,18 +33,17 @@ function AdminTableComments() {
         var data = '';
         var config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/comments',
+            url: `${apiUrl}/api/comments`,
             headers: {},
             data: data
         };
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setCommentData(response.data);
                 setFoundComment(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
 
     }, [])

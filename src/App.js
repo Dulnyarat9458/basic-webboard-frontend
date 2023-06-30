@@ -17,14 +17,11 @@ import EditContentPage from './pages/EditContentPage';
 import EditCommentPage from './pages/EditCommentPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 function App() {
-
   const token = localStorage.getItem('token');
-
+  
   if (!token) {
     <Navigate to="/" replace />
-  } else {
-
-  }
+  } 
 
   return (
     <BrowserRouter>

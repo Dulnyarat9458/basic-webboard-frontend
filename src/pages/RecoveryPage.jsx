@@ -8,6 +8,7 @@ import { trackPromise } from 'react-promise-tracker';
 import { useNavigate } from "react-router-dom";
 
 function RecoveryPage() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     let navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => recoveryFunction(data);
@@ -30,16 +31,11 @@ function RecoveryPage() {
     };
 
     const recoveryFunction = (_data) => {
-
-        console.log("loginFunction actived")
-        console.log(_data.email)
-        console.log(_data.password)
         trackPromise(
-            Axios.post('http://127.0.0.1:5000/api/users/recovery',
+            Axios.post(`${apiUrl}/api/users/recovery`,
                 {
                     "user_email": _data.email,
                 }).then((response) => {
-                    console.log(response.data.status)
                     if (response.data.status === "ok") {
                         navigate('/stage', {
                             state: {
@@ -54,7 +50,6 @@ function RecoveryPage() {
                             isLoading: true,
                         });
                     }
-
                 }).catch((err) => {
 
                     setDialog({
@@ -87,7 +82,6 @@ function RecoveryPage() {
                     </div>
                 </form>
             </div>
-
             {dialog.isLoading && (
                 <SimpleDialog
                     onDialog={acceptResponse}

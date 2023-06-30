@@ -4,11 +4,8 @@ import { Link } from 'react-router-dom'
 function ContentCard(props) {
     const { contentData } = props;
     const navigate = useNavigate();
-    console.log()
     const content_id = contentData.content_id;
     const url = '/fullcontent/' + content_id;
-    
-
     return (
         <Link to={url}>
             <div className="text-sm card p-4 m-8 rounded-lg ">

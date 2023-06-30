@@ -7,6 +7,7 @@ import '../scss/CommentBox.scss';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 function CommentBox(props) {
+    const apiUrl = process.env.REACT_APP_API_URL;
     var userObject = localStorage.getItem('user');
     var _userObject = JSON.parse(userObject)
     const onSubmit = data => writeCommentFunction(data);
@@ -29,17 +30,15 @@ function CommentBox(props) {
         handleDialog("", false);
     };
     const writeCommentFunction = (_data) => {
-
-
-        var data = JSON.stringify({
+        const data = JSON.stringify({
             "comment_text": _data.comment,
             "comment_writer_id": _userObject.id,
             "comment_content_id": content_id,
         });
 
-        var config = {
+        const config = {
             method: 'post',
-            url: 'http://127.0.0.1:5000/api/comments/addcomment',
+            url: `${apiUrl}/api/comments/addcomment`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -48,29 +47,19 @@ function CommentBox(props) {
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
-                // window.location.reload(false);
                 setDialog({
                     status: response.data.status + "refresh",
                     message: response.data.msg,
                     isLoading: true,
-
                 },)
-
-                console.log("dia: " + setDialog)
-
-
-
             })
             .catch(function (error) {
-                console.log(error);
                 setDialog({
                     status: "error",
                     message: error,
                     isLoading: true,
                 });
             });
-
     }
 
     if (userObject === null) {
@@ -83,7 +72,6 @@ function CommentBox(props) {
             </div>)
     } else {
         return (
-
             <div className='panel p-8 m-8 rounded-lg comment-box'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>   <h2 className="font-bold mb-8">Write your content</h2>
@@ -93,10 +81,8 @@ function CommentBox(props) {
                             })}
                         ></textarea>
                         <p className='text-red-500 text-sm'>{errors.comment?.message}</p>
-
                         <input type="submit" value="SUBMIT" className="submit-btn text-center p-2 my-4 rounded-lg font-bold text-l"></input>
                     </div>
-
                 </form>
                 {dialog.isLoading && (
                     <SimpleDialog className='sm-dialog'
@@ -106,9 +92,6 @@ function CommentBox(props) {
                     />
                 )}
             </div>
-
-
-
         );
     }
 

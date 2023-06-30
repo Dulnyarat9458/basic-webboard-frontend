@@ -4,7 +4,6 @@ import '../scss/CircularLoading.scss'
 
 export default function CircularIndeterminate() {
     const { promiseInProgress } = usePromiseTracker();
-    console.log("promiseInProgress"+promiseInProgress);
     if (promiseInProgress) {
         return (
             <div className='loading-cover'>

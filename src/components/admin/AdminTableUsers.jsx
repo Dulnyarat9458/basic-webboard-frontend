@@ -10,48 +10,40 @@ import '../../scss/AdminDashboard.scss'
 
 
 function AdminTableUsers() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [userData, setUserData] = useState([]);
     const [email, setEmail] = useState('');
     const [foundUsers, setFoundUsers] = useState([]);
-
     const filter = (e) => {
         const keyword = e.target.value;
-        console.log("foundUsers: " + foundUsers)
         if (keyword !== '') {
-            console.log(keyword)
             const results = userData.filter((user) => {
-                console.log(user)
                 return user.user_email.toLowerCase().startsWith(keyword.toLowerCase());
             });
             setFoundUsers(results);
         } else {
             setFoundUsers(userData);
         }
-
         setEmail(keyword);
     };
 
-
     useEffect(() => {
-
-        var axios = require('axios');
-        var data = '';
-        var config = {
+        const axios = require('axios');
+        const data = '';
+        const config = {
             method: 'get',
-            url: 'http://127.0.0.1:5000/api/users',
+            url: `${apiUrl}/api/users`,
             headers: {},
             data: data
         };
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
                 setUserData(response.data);
                 setFoundUsers(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
-
     }, [])
 
     const dataElements = foundUsers.map((foundUsers, index) => {
