@@ -127,7 +127,7 @@ function RegisterPage() {
                 <SimpleDialog
                     onDialog={acceptResponse}
                     message={dialog.message}
-                    status={dialog.status.toUpperCase()}
+                    status={dialog.status}
                 />
             )}
         </div>

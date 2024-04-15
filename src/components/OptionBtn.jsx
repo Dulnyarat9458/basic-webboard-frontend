@@ -10,6 +10,7 @@ function OptionBtn(props) {
     var userObject = localStorage.getItem('user');
     var _userObject = JSON.parse(userObject)
     let navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const submit = () => {
         confirmAlert({
             title: 'Confirm to submit',
@@ -22,7 +23,10 @@ function OptionBtn(props) {
                         var config = {
                             method: 'delete',
                             url: `${apiUrl}/api/contents/own/delete/${author_id}/${content_id}`,
-                            headers: {}
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + token
+                            },
                         };
                         axios(config)
                             .then(function (response) {

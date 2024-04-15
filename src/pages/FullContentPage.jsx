@@ -18,6 +18,7 @@ function FullContentPage() {
     const shareTwitterUrl = "http://www.twitter.com/share?url=" + window.location.href;
     const shareLineUrl = "https://social-plugins.line.me/lineit/share?url=" + window.location.href;
     const apiUrl = process.env.REACT_APP_API_URL;
+    
     useEffect(() => {
         var config = {
             method: 'get',
@@ -50,6 +51,8 @@ function FullContentPage() {
                 console.error(error);
             });
     }
+
+    console.log(comment)
 
     const commentElements = comment.map((comment, index) => {
         return (

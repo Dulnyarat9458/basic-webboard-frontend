@@ -32,10 +32,14 @@ function EditContentPage() {
     const acceptResponse = () => {
         handleDialog("", false);
     };
+
     const editFunction = (_data) => {
+
+        console.log("acticve")
         const token = localStorage.getItem('token');
         const userObject = localStorage.getItem('user');
         const _userObject = JSON.parse(userObject)
+
         const data = JSON.stringify({
             "content_author_id": _userObject.id,
             "content_id": id,
@@ -76,7 +80,7 @@ function EditContentPage() {
         var data = '';
         var config = {
             method: 'get',
-            url: `${apiUrl}/api/contents/id`,
+            url: `${apiUrl}/api/contents/${id}`,
             headers: {},
             data: data
         };

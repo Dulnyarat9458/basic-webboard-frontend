@@ -1,6 +1,6 @@
 import React from 'react';
 import '../scss/OptionBtn.scss'
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { confirmAlert } from 'react-confirm-alert';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom'
@@ -10,6 +10,7 @@ function CommentOptionBtn(props) {
     var userObject = localStorage.getItem('user');
     var _userObject = JSON.parse(userObject)
     let navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const apiUrl = process.env.REACT_APP_API_URL;
     const submit = () => {
         confirmAlert({
@@ -23,7 +24,10 @@ function CommentOptionBtn(props) {
                         var config = {
                             method: 'delete',
                             url: `${apiUrl}/api/comments/own/delete/${comment_writer_id}/${comment_id}`,
-                            headers: {}
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + token
+                            },
                         };
                         axios(config)
                             .then(function (response) {
